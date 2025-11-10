@@ -1,5 +1,5 @@
 {
-  "name": "ts-lunar",
+  "name": "lunar-ts",
   "version": "1.0.0",
   "description": "Chinese Lunar Calendar converter (1900-2100)",
   "type": "module",
@@ -50,12 +50,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Wilson9512/ts-lunar.git"
+    "url": "https://github.com/Wilson9512/lunar-ts.git"
   },
   "bugs": {
-    "url": "https://github.com/Wilson9512/ts-lunar/issues"
+    "url": "https://github.com/Wilson9512/lunar-ts/issues"
   },
-  "homepage": "https://github.com/Wilson9512/ts-lunar#readme",
+  "homepage": "https://github.com/Wilson9512/lunar-ts#readme",
   "dependencies": {
     "dayjs": "^1.11.10"
   },

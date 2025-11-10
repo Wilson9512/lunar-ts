@@ -1,10 +1,10 @@
-# ts-lunar
+# lunar-ts
 
 > Tiny, fast, focused Chinese Lunar Calendar converter. Just what you need, nothing more.
 
-## Why ts-lunar?
+## Why lunar-ts?
 
-**ts-lunar is different:**
+**lunar-ts is different:**
 
 - **Tiny** - Minimal bundle size, only essential code
 - **Fast** - Simple API, no learning curve
@@ -16,13 +16,13 @@
 ## Installation
 
 ```bash
-npm install ts-lunar
+npm install lunar-ts
 ```
 
 ## Quick Start
 
 ```typescript
-import { toLunar, getZodiac, getTerm } from 'ts-lunar';
+import { toLunar, getZodiac, getTerm } from 'lunar-ts';
 
 // Convert to lunar date
 const lunar = toLunar(Date.now());
@@ -73,7 +73,7 @@ const allTerms = getAllTerms(new Date('2025-01-01').getTime());
 ## Philosophy
 
 **Do one thing well.** If you need:
-- Just lunar dates, zodiac, and solar terms → Use ts-lunar
+- Just lunar dates, zodiac, and solar terms → Use lunar-ts
 - Complex calendar calculations, festivals, fortune telling → Use other libraries
 
 We believe in giving you building blocks, not a cathedral. Compose your own solution.
@@ -124,7 +124,7 @@ Get all 24 solar terms for the year.
 
 **Returns:** Array of `{ name, month, day }` objects
 
-## When NOT to use ts-lunar
+## When NOT to use lunar-ts
 
 - You need festival dates (清明, 端午, etc.) → This only gives you raw dates
 - You need fortune telling (八字, 五行) → This only gives you zodiac and ganzhi
@@ -144,6 +144,6 @@ ISC License - See [LICENSE](./LICENSE) file for details.
 
 ## Contributing
 
-Found a bug? Have a feature request? Open an issue on [GitHub](https://github.com/Wilson9512/ts-lunar/issues).
+Found a bug? Have a feature request? Open an issue on [GitHub](https://github.com/Wilson9512/lunar-ts/issues).
 
 ---
