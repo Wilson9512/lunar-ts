@@ -1,0 +1,67 @@
+{
+  "name": "ts-lunar",
+  "version": "1.0.0",
+  "description": "Chinese Lunar Calendar converter (1900-2100)",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsc --emitDeclarationOnly --outDir dist",
+    "test": "vitest",
+    "test:once": "vitest run",
+    "prepublishOnly": "npm run test:once && npm run build"
+  },
+  "keywords": [
+    "lunar",
+    "nongli",
+    "農曆",
+    "chinese",
+    "calendar",
+    "zodiac",
+    "生肖",
+    "solar terms",
+    "jieqi",
+    "節氣",
+    "ganzhi",
+    "干支",
+    "lightweight",
+    "tiny",
+    "nano",
+    "small",
+    "fast",
+    "simple",
+    "js",
+    "javascript",
+    "ts",
+    "typescript"
+  ],
+  "author": "Wilson",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wilson9512/ts-lunar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wilson9512/ts-lunar/issues"
+  },
+  "homepage": "https://github.com/Wilson9512/ts-lunar#readme",
+  "dependencies": {
+    "dayjs": "^1.11.10"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vitest": "^1.0.4"
+  }
+}
