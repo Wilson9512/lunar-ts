@@ -104,7 +104,7 @@ Get Chinese zodiac animal for the year.
 **Parameters:**
 - `timestamp` (number): Unix timestamp in milliseconds
 
-**Returns:** One of: `'鼠'`, `'牛'`, `'虎'`, `'兔'`, `'龍'`, `'蛇'`, `'馬'`, `'羊'`, `'猴'`, `'雞'`, `'狗'`, `'豬'`
+**Returns:** One of: "rat", "ox", "tiger" ,"rabbit" ,"dragon" ,"snake" ,"horse" ,"goat" ,"monkey" ,"rooster" ,"dog" ,"pig"
 
 ### `getTerm(timestamp: number)`
 
