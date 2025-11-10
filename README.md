@@ -16,7 +16,15 @@
 ## Installation
 
 ```bash
-npm install lunar-ts
+npm i lunar-ts
+```
+
+```bash
+yarn add lunar-ts
+```
+
+```bash
+pnpm i lunar-ts
 ```
 
 ## Quick Start
