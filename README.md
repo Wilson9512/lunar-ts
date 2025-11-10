@@ -31,7 +31,7 @@ console.log(lunar);
 
 // Get zodiac animal
 const zodiac = getZodiac(Date.now());
-console.log(zodiac); // '蛇'
+console.log(zodiac); // 'snake'
 
 // Check if today is a solar term
 const term = getTerm(Date.now());
