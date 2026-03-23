@@ -7,6 +7,7 @@ import { toLunar } from './lunar';
 import { getTerm, getAllTerms } from './term';
 import { getGZ } from './ganzhi';
 import { getZodiac } from './zodiac';
+import { lunar, Lunar } from './core/lunar';
 
 export {
   GZ_CYCLE,
@@ -16,7 +17,9 @@ export {
   getZodiac,
   getGZ,
   getTerm,
-  getAllTerms
+  getAllTerms,
+  lunar,
+  Lunar
 };
 
 export type { GZ, ZodiacAnimal, TermName, LunarDate } from './types';

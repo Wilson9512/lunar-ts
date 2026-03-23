@@ -10,4 +10,5 @@ export interface LunarDate {
   lYear: number;
   lMonth: number;
   lDay: number;
+  isLeap?: boolean;
 }

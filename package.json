@@ -56,9 +56,6 @@
     "url": "https://github.com/Wilson9512/lunar-ts/issues"
   },
   "homepage": "https://github.com/Wilson9512/lunar-ts#readme",
-  "dependencies": {
-    "dayjs": "^1.11.10"
-  },
   "devDependencies": {
     "typescript": "^5.3.3",
     "vite": "^5.0.10",

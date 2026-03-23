@@ -1,157 +1,91 @@
-# lunar-ts
+# lunar-ts 🌙
 
-> Tiny, fast, focused Chinese Lunar Calendar converter. Just what you need, nothing more.
+> A highly-optimized, zero-dependency, and fluent Chinese Lunar Calendar converter.
 
-## Why lunar-ts?
+[![npm version](https://img.shields.io/npm/v/lunar-ts.svg)](https://www.npmjs.com/package/lunar-ts)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/lunar-ts)](https://bundlephobia.com/package/lunar-ts)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
-**lunar-ts is different:**
+**lunar-ts** is designed for modern web applications. It strips away the bloat, replaces $O(N)$ calculations with $O(1)$ constant-time prefix-sums, and uses lazy evaluation to give you exactly what you need with zero overhead.
 
-- **Tiny** - Minimal bundle size, only essential code
-- **Fast** - Simple API, no learning curve
-- **Focused** - Does 3 things really well:
-  - ✅ Convert Gregorian → Lunar dates
-  - ✅ Get Chinese zodiac (生肖)
-  - ✅ Get solar terms (節氣)
+* **Nano Size:** **~3KB** (minified & gzipped). No `dayjs`, no heavy dependencies.
+* **Blazing Fast:** $O(1)$ algorithm using precomputed prefix sums and binary search.
+* **Fluent API:** Clean, lazy-evaluated getter properties. Calculate only when accessed.
+* **Type-Safe:** First-class TypeScript support.
 
 ## Installation
 
 ```bash
-npm i lunar-ts
+npm install lunar-ts
+# or pnpm install lunar-ts
+# or yarn add lunar-ts
 ```
 
-```bash
-yarn add lunar-ts
-```
+## Quick Start (New Fluent API)
 
-```bash
-pnpm i lunar-ts
-```
-
-## Quick Start
+The easiest and most efficient way to use `lunar-ts` is via the unified factory function.
 
 ```typescript
-import { toLunar, getZodiac, getTerm } from 'lunar-ts';
+import { lunar } from 'lunar-ts';
 
-// Convert to lunar date
-const lunar = toLunar(Date.now());
-console.log(lunar);
-// { lYear: 2025, lMonth: 1, lDay: 13 }
+// Accepts Date object, timestamp, or string
+const date = lunar(new Date()); 
 
-// Get zodiac animal
-const zodiac = getZodiac(Date.now());
-console.log(zodiac); // 'snake'
+// Core Lunar Date (Immediate Calculation)
+console.log(date.year);    // 2024
+console.log(date.month);   // 1
+console.log(date.day);     // 1
+console.log(date.isLeap);  // false
 
-// Check if today is a solar term
-const term = getTerm(Date.now());
-console.log(term); // '立春' or null
+// Lazy Evaluation properties (Computed ONLY when accessed)
+console.log(date.zodiac);       // 'dragon'
+console.log(date.ganzhi.year);  // '甲辰'
+console.log(date.term);         // '立春' (or null if not a solar term)
 ```
 
-## That's All You Need
+## Legacy / Modular API
 
-### Convert Gregorian → Lunar
+If you prefer the functional approach or want extreme tree-shaking, you can import individual utilities:
 
 ```typescript
-const lunar = toLunar(new Date('2025-02-10').getTime());
-// { year: 2025, month: 1, day: 13 }
+import { toLunar, getZodiac, getTerm, getAllTerms } from 'lunar-ts';
+
+const ts = Date.now();
+
+// 1. Gregorian → Lunar
+const result = toLunar(ts);
+// { lYear: 2024, lMonth: 1, lDay: 1, isLeap: false }
+
+// 2. Get Zodiac Animal
+const zodiac = getZodiac(ts); // 'dragon'
+
+// 3. Get Solar Term
+const term = getTerm(ts); // '立春' or null
+
+// 4. Get all 24 solar terms for a specific year
+const terms = getAllTerms(ts);
+// [{ name: '小寒', month: 1, day: 5 }, ...]
 ```
 
-### Get Zodiac
+## Why lunar-ts?
 
-```typescript
-const zodiac = getZodiac(new Date('2025-01-01').getTime());
-// 'snake' (Snake for 2025)
-```
+There are many lunar calendar libraries out there, but most are bloated with fortune-telling algorithms, festival hardcodings, and heavy timezone dependencies like `moment` or `dayjs`.
 
-### Check Solar Terms
+**lunar-ts** takes a different approach:
+1. **Zero Dependencies:** Replaced `dayjs` with an internal native `UTC+8` Beijing time converter.
+2. **Compressed Data Tables:** Solar term arrays are serialized into flat hexadecimal strings, sliced optimally in memory.
+3. **Prefix-Sum Indexing:** Replaced standard `while` loops for year-day deductions with an $O(1)$ lookup table + binary search, guaranteeing consistent microsecond execution times.
 
-```typescript
-// Check if a specific date is a solar term
-const term = getTerm(new Date('2025-02-03').getTime());
-// '立春' or null
+If you are building a dashboard, a sleek date-picker, or just need raw calendar conversion without the architectural bloat—this is for you.
 
-// Get all 24 solar terms for the year
-const allTerms = getAllTerms(new Date('2025-01-01').getTime());
-// [
-//   { name: '小寒', month: 1, day: 5 },
-//   { name: '大寒', month: 1, day: 20 },
-//   ...
-// ]
-```
+## Constraints & Scope
 
-## Philosophy
-
-**Do one thing well.** If you need:
-- Just lunar dates, zodiac, and solar terms → Use lunar-ts
-- Complex calendar calculations, festivals, fortune telling → Use other libraries
-
-We believe in giving you building blocks, not a cathedral. Compose your own solution.
-
-## Features
-
-- ✅ TypeScript support with full type definitions
-- ✅ Support years 1900-2100
-- ✅ Tree-shakeable ESM and CommonJS
-- ✅ Zero dependencies (except dayjs for timezone handling)
-- ✅ ISC License
-
-## API
-
-### `toLunar(timestamp: number)`
-
-Convert Gregorian date to lunar date.
-
-**Parameters:**
-- `timestamp` (number): Unix timestamp in milliseconds
-
-**Returns:** `LunarDate` object with `lYear`, `lMonth`, `lDay`
-
-### `getZodiac(timestamp: number)`
-
-Get Chinese zodiac animal for the year.
-
-**Parameters:**
-- `timestamp` (number): Unix timestamp in milliseconds
-
-**Returns:** One of: "rat", "ox", "tiger" ,"rabbit" ,"dragon" ,"snake" ,"horse" ,"goat" ,"monkey" ,"rooster" ,"dog" ,"pig"
-
-### `getTerm(timestamp: number)`
-
-Check if the date is one of the 24 solar terms.
-
-**Parameters:**
-- `timestamp` (number): Unix timestamp in milliseconds
-
-**Returns:** Term name (e.g., `'立春'`) or `null`
-
-### `getAllTerms(timestamp: number)`
-
-Get all 24 solar terms for the year.
-
-**Parameters:**
-- `timestamp` (number): Unix timestamp in milliseconds
-
-**Returns:** Array of `{ name, month, day }` objects
-
-## When NOT to use lunar-ts
-
-- You need festival dates (清明, 端午, etc.) → This only gives you raw dates
-- You need fortune telling (八字, 五行) → This only gives you zodiac and ganzhi
-- You need detailed calendar rules → This gives you data, you build the logic
-
-## Timezone Handling
-
-All conversions use Beijing timezone (Asia/Shanghai) by default, which is standard for Chinese lunar calendar calculations.
+- **Timezone:** Fixed to `UTC+8` (Beijing Time), which is standard for Chinese lunar logic.
+- **Range:** Supports years **1900 - 2100**.
+- **Scope:** Provides basic dates, zodiacs, and 24 solar terms. Does *not* include festival text mappings or Bazi/Feng-shui calculations.
 
 ## Data Sources
-
-Lunar calendar data (1900-2100) is based on [solarlunar](https://github.com/yize/solarlunar) (ISC License).
+Lunar calendar data encoding is based on [solarlunar](https://github.com/yize/solarlunar).
 
 ## License
-
-ISC License - See [LICENSE](./LICENSE) file for details.
-
-## Contributing
-
-Found a bug? Have a feature request? Open an issue on [GitHub](https://github.com/Wilson9512/lunar-ts/issues).
-
----
+ISC License © Wilson
