@@ -21,14 +21,15 @@ function getTermDay(year: number, termIndex: number): number | null {
   const table = TERMS_TABLE.slice(offset, offset + 30);
   if (!table || table.length < 30) return null;
 
-  // 將30字符的十六進制字符串分成6組，每組5個字符
+  // 將 30 字元的十六進位字串分成 6 組，每組 5 字元
+  // 使用 parseInt(str, 16) 直接指定基數，比拼接 '0x' 前綴更高效且語意清晰
   const info = [
-    parseInt('0x' + table.slice(0, 5)).toString(),
-    parseInt('0x' + table.slice(5, 10)).toString(),
-    parseInt('0x' + table.slice(10, 15)).toString(),
-    parseInt('0x' + table.slice(15, 20)).toString(),
-    parseInt('0x' + table.slice(20, 25)).toString(),
-    parseInt('0x' + table.slice(25, 30)).toString()
+    parseInt(table.slice(0, 5), 16).toString(),
+    parseInt(table.slice(5, 10), 16).toString(),
+    parseInt(table.slice(10, 15), 16).toString(),
+    parseInt(table.slice(15, 20), 16).toString(),
+    parseInt(table.slice(20, 25), 16).toString(),
+    parseInt(table.slice(25, 30), 16).toString()
   ];
 
   const calDay = [

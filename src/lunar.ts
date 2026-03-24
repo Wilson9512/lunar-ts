@@ -50,6 +50,9 @@ function getMonthDays(data: number, month: number): number {
  * @returns 農曆日期物件，若日期無效則返回 null
  */
 export function toLunar(timestamp: number): LunarDate | null {
+  // 防範 NaN / Infinity（例如 new Date('invalid').getTime() 會回傳 NaN）
+  if (!Number.isFinite(timestamp)) return null;
+
   const beijing = getBeijingDate(timestamp);
   
   const year = beijing.getUTCFullYear();

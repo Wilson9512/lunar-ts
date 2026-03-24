@@ -18,15 +18,16 @@ function getAnimalString(year: number): string {
 
 /**
  * 根據公曆日期取得生肖
- * Get zodiac animal by lunar date
+ * Get zodiac animal by Gregorian date
  *
  * @param timestamp - Unix timestamp in milliseconds
- * @returns 生肖英文 / Zodiac animal
+ * @returns 生肖英文；日期超出支援範圍（1900–2100）時回傳 null
  */
-export function getZodiac(timestamp: number): ZodiacAnimal {
+export function getZodiac(timestamp: number): ZodiacAnimal | null {
   const lunar = toLunar(timestamp);
 
-  if (!lunar) throw new Error('Invalid date');
+  // 日期超出支援範圍（1900/1/31 以前或 2100 以後）
+  if (!lunar) return null;
 
   const animal = getAnimalString(lunar.lYear);
 

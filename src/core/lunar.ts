@@ -7,11 +7,14 @@ import type { ZodiacAnimal, GZ, TermName, LunarDate } from '../types';
 export class Lunar {
   private timestamp: number;
   private _lunar: LunarDate | null;
+  // ganzhi 物件快取，避免每次存取 .ganzhi 都重新建立物件
+  private _ganzhiCache: { readonly year: GZ | null } | null = null;
 
   constructor(date: Date | number | string = new Date()) {
     if (date instanceof Date) {
       this.timestamp = date.getTime();
     } else if (typeof date === 'string') {
+      // new Date('invalid').getTime() 會回傳 NaN，toLunar 會安全處理並回傳 null
       this.timestamp = new Date(date).getTime();
     } else {
       this.timestamp = date;
@@ -43,14 +46,12 @@ export class Lunar {
     return this._lunar ? getZodiac(this.timestamp) : null;
   }
 
-  get ganzhi() {
-    const ts = this.timestamp;
-    const valid = this.isValid;
-    return {
-      get year(): GZ | null {
-        return valid ? getGZ(ts) : null;
-      }
-    };
+  get ganzhi(): { readonly year: GZ | null } {
+    // 首次存取時才計算並快取，後續直接回傳同一物件，避免重複 allocate
+    if (!this._ganzhiCache) {
+      this._ganzhiCache = { year: this.isValid ? getGZ(this.timestamp) : null };
+    }
+    return this._ganzhiCache;
   }
 
   get term(): TermName | null {
